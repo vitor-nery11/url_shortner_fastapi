@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encurtador de URLs - Rápido & Simples</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <main class="container">
+        <!-- Cabeçalho -->
+        <header class="header">
+            <div class="logo-badge">
+                <span class="icon">⚡</span> FastAPI Shortener
+            </div>
+            <h1>Encurte links longos em <span class="gradient-text">segundos</span></h1>
+            <p class="subtitle">Uma ferramenta simples, rápida e eficiente para criar links curtos e acompanhar suas estatísticas de cliques.</p>
+        </header>
+
+        <!-- Navegação de Abas -->
+        <div class="tab-nav">
+            <button class="tab-btn active" data-tab="shorten-tab">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                Encurtar Link
+            </button>
+            <button class="tab-btn" data-tab="stats-tab">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                Ver Estatísticas
+            </button>
+        </div>
+
+        <!-- Conteúdo das Abas -->
+        <div class="card glass">
+            <!-- Aba 1: Encurtar -->
+            <section id="shorten-tab" class="tab-content active">
+                <form id="shorten-form" class="form">
+                    <label for="url-input" class="label">Cole sua URL longa:</label>
+                    <div class="input-group">
+                        <span class="input-icon">🔗</span>
+                        <input 
+                            type="url" 
+                            id="url-input" 
+                            placeholder="https://exemplo.com/pagina-muito-longa-para-compartilhar" 
+                            required
+                            autocomplete="off"
+                        >
+                        <button type="submit" id="submit-btn" class="btn btn-primary">
+                            <span class="btn-text">Encurtar</span>
+                            <span class="spinner hidden"></span>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Resultado do Encurtamento -->
+                <div id="result-box" class="result-box hidden">
+                    <div class="result-header">
+                        <span class="badge success">Link Gerado com Sucesso!</span>
+                    </div>
+                    
+                    <div class="short-link-display">
+                        <input type="text" id="shortened-url" readonly>
+                        <div class="action-buttons">
+                            <button id="copy-btn" class="btn btn-secondary" title="Copiar link">
+                                <span class="copy-icon">📋</span>
+                                <span class="copy-text">Copiar</span>
+                            </button>
+                            <a id="open-btn" href="#" target="_blank" class="btn btn-outline" title="Abrir link">
+                                ↗️ Abrir
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="result-details">
+                        <p><strong>Original:</strong> <span id="res-original" class="truncate-text"></span></p>
+                        <p><strong>Código:</strong> <code id="res-code"></code></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Aba 2: Estatísticas -->
+            <section id="stats-tab" class="tab-content">
+                <form id="stats-form" class="form">
+                    <label for="code-input" class="label">Código ou Link Encurtado:</label>
+                    <div class="input-group">
+                        <span class="input-icon">🔍</span>
+                        <input 
+                            type="text" 
+                            id="code-input" 
+                            placeholder="Ex: Ba9ymF ou o link completo" 
+                            required
+                            autocomplete="off"
+                        >
+                        <button type="submit" id="stats-submit-btn" class="btn btn-primary">
+                            <span class="btn-text">Buscar</span>
+                            <span class="spinner hidden"></span>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Resultado das Estatísticas -->
+                <div id="stats-result-box" class="stats-result-box hidden">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <span class="stat-label">Total de Cliques</span>
+                            <span class="stat-value" id="stat-clicks">0</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-label">Código</span>
+                            <span class="stat-value code-val" id="stat-code">-</span>
+                        </div>
+                    </div>
+
+                    <div class="stats-details">
+                        <div class="stat-item">
+                            <strong>URL Original:</strong>
+                            <a id="stat-original" href="#" target="_blank" class="link truncate-text">-</a>
+                        </div>
+                        <div class="stat-item">
+                            <strong>Criado em:</strong>
+                            <span id="stat-created">-</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Histórico Local de Links Recentes -->
+        <section id="history-section" class="history-section hidden">
+            <h3>Links Recentes</h3>
+            <div id="history-list" class="history-list"></div>
+        </section>
+    </main>
+
+    <!-- Notificação Toast -->
+    <div id="toast" class="toast hidden"></div>
+
+    <footer class="footer">
+        <p>Desenvolvido com <strong>FastAPI</strong> & <strong>SQLite</strong></p>
+        <a href="/docs" target="_blank" class="docs-link">📖 Documentação da API (Swagger)</a>
+    </footer>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

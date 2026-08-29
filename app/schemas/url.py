@@ -1,0 +1,26 @@
+from datetime import datetime
+from pydantic import BaseModel, HttpUrl, ConfigDict
+
+
+class URLCreate(BaseModel):
+    original_url: HttpUrl
+
+
+class URLResponse(BaseModel):
+    id: int
+    original_url: str
+    short_code: str
+    clicks: int
+    created_at: datetime
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class URLStats(BaseModel):
+    id: int
+    original_url: str
+    short_code: str
+    clicks: int
+    created_at: datetime
+
+    model_config = ConfigDict(from_attributes=True)
