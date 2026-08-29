@@ -3,6 +3,10 @@
 ## Sobre o projeto
 Um aplicativo web full-stack para encurtamento de URLs e acompanhamento de estatísticas de acessos. O sistema permite que o usuário transforme links longos em códigos curtos e fáceis de compartilhar, redirecionando os visitantes automaticamente para a URL de destino e registrando o total de cliques em tempo real.
 
+<p align="center">
+  <img src="assests/encurtador_ft.png" alt="Demonstração do Encurtador de URLs" width="700">
+</p>
+
 ---
 
 ## Funcionalidades
